@@ -21,18 +21,24 @@ if (document.readyState === "loading") {
 // Part 4 Listening
 
 const main = () => {
+  //Part 2
   console.log(myname);
-  // Part 2
   console.log(document);
+
+  // Part 5 Quering
+
+  const changeMe = document.querySelector("button");
+  console.log("here", changeMe);
+
+  // Part 6 Interacting
+  const onClick = (e) => console.log(e);
+  changeMe.addEventListener("click", onClick);
 };
+
+main();
 
 if (document.readyState === "loading") {
   console.log("loading the page");
 } else {
   console.log("load success");
 }
-
-// Part 5 Quering
-
-const changeMe = document.querySelector("button");
-console.log("here", changeMe);
