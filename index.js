@@ -18,7 +18,7 @@ if (document.readyState === "loading") {
   doEverything();
 }
 
-// Part 4
+// Part 4 Listening
 
 const main = () => {
   console.log(myname);
@@ -31,3 +31,8 @@ if (document.readyState === "loading") {
 } else {
   console.log("load success");
 }
+
+// Part 5 Quering
+
+const changeMe = document.querySelector("button");
+console.log("here", changeMe);
