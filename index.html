@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="index.js"></script>
-  </head>
+<html>
+  <head> </head>
+  <link rel="stylesheet" href="style.css" />
+
   <body>
-    <h1>Hi</h1>
-    <button id="btn">change me</button>
-    <!-- Event Listeners -->
-    <table id="outside">
-      <tr>
-        <td id="t1">one</td>
-      </tr>
-      <tr>
-        <td id="t2">two</td>
-      </tr>
-    </table>
+    <h1 id="title">i am niko</h1>
+    This is the home page
+
+    <div class="outer">
+      outer, once & none-once
+      <div class="middle" target="_blank">
+        middle, capture & none-capture
+        <a class="inner1" href="https://www.mozilla.org" target="_blank">
+          inner1, passive & preventDefault(which is not allowed)
+        </a>
+        <a class="inner2" href="https://developer.mozilla.org/" target="_blank">
+          inner2, none-passive & preventDefault(not open new page)
+        </a>
+      </div>
+    </div>
   </body>
+  <script src="index.js"></script>
 </html>

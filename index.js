@@ -1,106 +1,59 @@
-// Part 1
-const myname = "nikolas";
-
-// Part 3
 // one function does everything
-function doEverything() {
-  console.log("everything");
-}
+const title = document.getElementById("title");
 
-// check if elements are still loading
-if (document.readyState === "loading") {
-  // if elements are still loading,
-  // wait for the DOMContentLoaded event
-  document.addEventListener("DOMContentLoaded", doEverything);
-} else {
-  // if elements are already loaded,
-  // run the function now
-  doEverything();
-}
+title.style.color = "red";
 
-// Part 4 Listening
+const outer = document.querySelector(".outer");
+const middle = document.querySelector(".middle");
+const inner1 = document.querySelector(".inner1");
+const inner2 = document.querySelector(".inner2");
 
-const main = () => {
-  //Part 2
-  console.log(myname);
-  console.log(document);
-
-  // Part 5 Quering
-
-  const changeMe = document.querySelector("button");
-  console.log("here", changeMe);
-
-  // Part 6 Interacting
-  const onClick = (e) => console.log(e);
-  changeMe.addEventListener("click", onClick);
+const capture = {
+  capture: true,
+};
+const noneCapture = {
+  capture: false,
+};
+const once = {
+  once: true,
+};
+const noneOnce = {
+  once: false,
+};
+const passive = {
+  passive: true,
+};
+const nonePassive = {
+  passive: false,
 };
 
-main();
+outer.addEventListener("click", onceHandler, once);
+outer.addEventListener("click", noneOnceHandler, noneOnce);
+middle.addEventListener("click", captureHandler, capture);
+middle.addEventListener("click", noneCaptureHandler, noneCapture);
+inner1.addEventListener("click", passiveHandler, passive);
+inner2.addEventListener("click", nonePassiveHandler, nonePassive);
 
-if (document.readyState === "loading") {
-  console.log("loading the page");
-} else {
-  console.log("load success");
+function onceHandler(event) {
+  alert("outer, once");
 }
-
-// Mutation observers
-// Select the node that will be observed for mutations
-const targetNode = document.getElementById("some-id");
-
-// Options for the observer (which mutations to observe)
-const config = { attributes: true, childList: true, subtree: true };
-
-// Callback function to execute when mutations are observed
-const callback = function (mutationsList, observer) {
-  // Use traditional 'for loops' for IE 11
-  for (const mutation of mutationsList) {
-    if (mutation.type === "childList") {
-      console.log("A child node has been added or removed.");
-    } else if (mutation.type === "attributes") {
-      console.log("The " + mutation.attributeName + " attribute was modified.");
-    }
-  }
-};
-
-// Create an observer instance linked to the callback function
-const observer = new MutationObserver(callback);
-
-// Start observing the target node for configured mutations
-observer.observe(targetNode, config);
-
-// Later, you can stop observing
-observer.disconnect();
-
-// Event listeners
-
-// Example One
-// Function to change the content of t2
-// function modifyText() {
-//   const t2 = document.getElementById("t2");
-//   if (t2.firstChild.nodeValue == "three") {
-//     t2.firstChild.nodeValue = "two";
-//   } else {
-//     t2.firstChild.nodeValue = "three";
-//   }
-// }
-
-// // Add event listener to table
-// const el = document.getElementById("outside");
-// el.addEventListener("click", modifyText, false);
-
-// Example Two
-// Function to change the content of t2
-function modifyText(new_text) {
-  const t2 = document.getElementById("t2");
-  t2.firstChild.nodeValue = new_text;
+function noneOnceHandler(event) {
+  alert("outer, none-once, default");
 }
-
-// Function to add event listener to table
-const el = document.getElementById("outside");
-el.addEventListener(
-  "click",
-  function () {
-    modifyText("four");
-  },
-  false
-);
+function captureHandler(event) {
+  //event.stopImmediatePropagation();
+  alert("middle, capture");
+}
+function noneCaptureHandler(event) {
+  alert("middle, none-capture, default");
+}
+function passiveHandler(event) {
+  // Unable to preventDefault inside passive event listener invocation.
+  event.preventDefault();
+  alert("inner1, passive, open new page");
+}
+function nonePassiveHandler(event) {
+  event.preventDefault();
+  //event.stopPropagation();
+  alert("inner2, none-passive, default, not open new page");
+}
